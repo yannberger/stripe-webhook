@@ -35,6 +35,15 @@ def stripe_webhook():
         print("✅ Nouvelle session enregistrée :", data)
 
     return '', 200
+@app.route('/sessions', methods=['GET'])
+def get_sessions():
+    try:
+        with open("sessions.json", "r", encoding="utf-8") as f:
+            data = json.load(f)
+            return jsonify(data)
+    except FileNotFoundError:
+        return jsonify([])  # Retourne une liste vide si le fichier n'existe pas
+
 
 if __name__ == '__main__':
     app.run(port=5000)
