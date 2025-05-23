@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import json
 from datetime import datetime
 
@@ -35,6 +35,7 @@ def stripe_webhook():
         print("✅ Nouvelle session enregistrée :", data)
 
     return '', 200
+
 @app.route('/sessions', methods=['GET'])
 def get_sessions():
     try:
@@ -43,7 +44,6 @@ def get_sessions():
             return jsonify(data)
     except FileNotFoundError:
         return jsonify([])  # Retourne une liste vide si le fichier n'existe pas
-
 
 if __name__ == '__main__':
     app.run(port=5000)
